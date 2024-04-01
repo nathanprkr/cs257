@@ -1,2 +1,3 @@
 # cs257
-cs 257 work
+this is my work for cs 257
+at carleton college
