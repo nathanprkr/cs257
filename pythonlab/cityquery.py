@@ -32,10 +32,12 @@ def query():
     command = (
         """
         SELECT * FROM cities WHERE city='Northfield';
-        PRINT 'working';
         """
+        '''
+        PRINT 'working';    
+        '''
         )
-    cur.execute(command)
+    cur.execute(command[1])
 
     row_list = cur.fetchall()
 
