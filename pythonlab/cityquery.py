@@ -38,7 +38,7 @@ def query():
 
     row_list = cur.fetchall()
 
-    if row_list == None:
+    if row_list == []:
         print("no cities match that name")
 
     else:
@@ -49,7 +49,7 @@ def query():
             else:
                 print("the cities latitude is: " + row[3])
                 print("the cities longitude is: " + row[4])
-                
+
 
 query()
 
