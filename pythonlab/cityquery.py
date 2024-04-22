@@ -55,7 +55,7 @@ def query():
 
     cur.execute(commands[1])
     max_pop = cur.fetchall()
-    print("the city with the highest population is: " + max_pop[0])
+    print(max_pop[0])
 
 
 query()
