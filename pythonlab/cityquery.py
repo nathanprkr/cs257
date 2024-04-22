@@ -32,7 +32,7 @@ def query():
     command = (
         """
         SELECT * FROM cities WHERE city='Northfield';
-        """
+        """,
         '''
         PRINT 'working';    
         '''
