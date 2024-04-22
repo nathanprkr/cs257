@@ -38,27 +38,18 @@ def query():
 
     row_list = cur.fetchall()
 
-    for row in row_list:
+    if row_list == None:
+        print("no cities match that name")
 
-        if row is None:
-            command = (
-                '''
-                PRINT 'aint nothin in ere';
-                '''
-            )   
-            cur.execute(command) 
-            print("There is no city that matches that name")
-        else:
-            command = (
-                '''
-                PRINT 'there sum shit in ere';
-                '''
-            )   
-            cur.execute(command) 
-            print("the cities latitude is: " + row[3])
-            print("the cities longitude is: " + row[4])
+    else:
+        for row in row_list:
+            if row is None:
+                print("There is no city that matches that name")
 
-    print("no rows")
+            else:
+                print("the cities latitude is: " + row[3])
+                print("the cities longitude is: " + row[4])
+                
 
 query()
 
