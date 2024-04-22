@@ -29,12 +29,15 @@ def query():
     
     cur = conn.cursor()
 
-    command = (
+    commands = (
         """
         SELECT * FROM cities WHERE city='Northfield';
-        """
+        """,
+        '''
+        SELECT city FROM cities ORDER BY pop DESC LIMIT 1;
+        '''
         )
-    cur.execute(command)
+    cur.execute(commands[0])
 
     row_list = cur.fetchall()
 
@@ -49,6 +52,10 @@ def query():
             else:
                 print("the cities latitude is: " + row[3])
                 print("the cities longitude is: " + row[4])
+
+    cur.execute(commands[1])
+    max_pop = cur.fetchall()
+    print("the city with the highest population is: " + max_pop[0])
 
 
 query()
@@ -84,4 +91,40 @@ def test_query_all():
     # Here I am leaving out the conn.commit() because we aren't changing
     #    either the database or the data in the database
     
+    return None
+
+
+
+#Often we want to put a Python variable into an SQL query
+def test_query_variable():
+    
+    # You will need to change the Port and the Password to use this code
+
+    conn = psycopg2.connect(
+        host="localhost",
+        port=5432,
+        database="mlepinski",
+        user="mlepinski",
+        password="MyDatabasePassword")
+
+    cur = conn.cursor()
+
+
+    # Here the %s signals that we will replace this with a variable later
+    sql = "SELECT name, abb FROM states WHERE abb = %s OR abb = %s "
+
+    state_abb1 = 'MN'
+    state_abb2 = 'NM'
+    
+    cur.execute( sql, [state_abb1, state_abb2]  )
+
+    # IMPORTANT: We need a list of values for the second input to execute
+    #   ... Even if we are only inserting my variable, it must be in a list
+    # For example,  [state_abb1]
+    
+    row_list = cur.fetchall()
+
+    for row in row_list:
+        print(row)
+
     return None
