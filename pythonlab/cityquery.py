@@ -32,16 +32,14 @@ def query():
     command = (
         """
         SELECT * FROM cities WHERE city='Northfield';
-        """,
-        '''
-        PRINT 'working';    
-        '''
+        """
         )
-    cur.execute(command[1])
+    cur.execute(command)
 
     row_list = cur.fetchall()
 
     for row in row_list:
+
         if row is None:
             command = (
                 '''
@@ -49,7 +47,7 @@ def query():
                 '''
             )   
             cur.execute(command) 
-            # print("There is no city that matches that name")
+            print("There is no city that matches that name")
         else:
             command = (
                 '''
@@ -57,8 +55,10 @@ def query():
                 '''
             )   
             cur.execute(command) 
-            # print("the cities latitude is: " + row[3])
-            # print("the cities longitude is: " + row[4])
+            print("the cities latitude is: " + row[3])
+            print("the cities longitude is: " + row[4])
+
+    print("no rows")
 
 query()
 
