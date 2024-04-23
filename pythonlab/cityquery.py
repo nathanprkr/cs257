@@ -82,7 +82,7 @@ WHERE (lat, lon) IN (
 
     cur.execute(commands[3])
     nsew = cur.fetchall()
-    print(nsew[0])
+    print(nsew)
 
 
 query()
