@@ -48,11 +48,22 @@ def query():
         '''
         SELECT city
         FROM cities
-        WHERE (lat, lon) IN (
-            SELECT lat, lon FROM cities WHERE lat = (SELECT MAX(lat) FROM cities) UNION
-            SELECT lat, lon FROM cities WHERE lon = (SELECT MAX(lon) FROM cities) UNION
-            SELECT lat, lon FROM cities WHERE lat = (SELECT MIN(lat) FROM cities) UNION
-            SELECT lat, lon FROM cities WHERE lon = (SELECT MIN(lon) FROM cities));
+        WHERE lat = (SELECT MAX(lat) FROM cities);
+        ''',
+        '''
+        SELECT city
+        FROM cities
+        WHERE lon = (SELECT MAX(lon) FROM cities);
+        ''',
+        '''
+        SELECT city
+        FROM cities
+        WHERE lat = (SELECT MIN(lat) FROM cities);
+        ''',
+        '''
+        SELECT city
+        FROM cities
+        WHERE lon = (SELECT MIN(lon) FROM cities);
         '''
         )
     cur.execute(commands[0])
@@ -80,8 +91,17 @@ def query():
     print(min_pop_in_mn[0])
 
     cur.execute(commands[3])
-    nsew = cur.fetchall()
-    print(nsew[0] + nsew[1] + nsew[2] + nsew[3])
+    north = cur.fetchall()
+    cur.execute(commands[4])
+    east = cur.fetchall()
+    cur.execute(commands[5])
+    south = cur.fetchall()
+    cur.execute(commands[6])
+    west = cur.fetchall()
+    print("furthest north:", north)
+    print("furthest east:", east)
+    print("furthest south:", south)
+    print("furthest west:", west)
 
 
 query()
