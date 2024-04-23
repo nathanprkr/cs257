@@ -49,9 +49,9 @@ def query():
         SELECT city
 FROM cities
 WHERE (lat, lon) IN (
-    SELECT lat, lon FROM cities WHERE lat = (SELECT MAX(lat) FROM cities) UNION ALL
-    SELECT lat, lon FROM cities WHERE lon = (SELECT MAX(lon) FROM cities) UNION ALL
-    SELECT lat, lon FROM cities WHERE lat = (SELECT MIN(lat) FROM cities) UNION ALL
+    SELECT lat, lon FROM cities WHERE lat = (SELECT MAX(lat) FROM cities) UNION
+    SELECT lat, lon FROM cities WHERE lon = (SELECT MAX(lon) FROM cities) UNION
+    SELECT lat, lon FROM cities WHERE lat = (SELECT MIN(lat) FROM cities) UNION
     SELECT lat, lon FROM cities WHERE lon = (SELECT MIN(lon) FROM cities)
 );
 
@@ -83,7 +83,7 @@ WHERE (lat, lon) IN (
 
     cur.execute(commands[3])
     nsew = cur.fetchall()
-    print(nsew)
+    print(nsew[0, 1, 2, 3])
 
 
 query()
