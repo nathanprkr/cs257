@@ -47,12 +47,13 @@ def query():
         ''',
         '''
         SELECT city
-        FROM cities
-        WHERE (lat, lon) IN (
-            SELECT MAX(lat), lon FROM cities UNION
-            SELECT lat, MAX(lon) FROM cities UNION
-            SELECT MIN(lat), lon FROM cities UNION
-            SELECT lat, MIN(lon) FROM cities);
+FROM cities
+WHERE (lat, lon) IN (
+    SELECT lat, lon FROM cities WHERE lat = (SELECT MAX(lat) FROM cities) UNION
+    SELECT lat, lon FROM cities WHERE lon = (SELECT MAX(lon) FROM cities) UNION
+    SELECT lat, lon FROM cities WHERE lat = (SELECT MIN(lat) FROM cities) UNION
+    SELECT lat, lon FROM cities WHERE lon = (SELECT MIN(lon) FROM cities)
+);
         '''
         )
     cur.execute(commands[0])
