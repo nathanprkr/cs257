@@ -44,6 +44,15 @@ def query():
         SELECT city
         FROM cities
         WHERE pop = (SELECT MIN(pop) FROM cities WHERE state = 'Minnesota');
+        ''',
+        '''
+        SELECT city
+        FROM cities
+        WHERE (lat, lon) IN (
+            SELECT MAX(lat), lon FROM cities UNION
+            SELECT lat, MAX(lon) FROM cities UNION
+            SELECT MIN(lat), lon FROM cities UNION
+            SELECT lat, MIN(lon) FROM cities);
         '''
         )
     cur.execute(commands[0])
@@ -70,6 +79,9 @@ def query():
     min_pop_in_mn = cur.fetchall()
     print(min_pop_in_mn[0])
 
+    cur.execute(commands[3])
+    nsew = cur.fetchall()
+    print(nsew[0])
 
 
 query()
