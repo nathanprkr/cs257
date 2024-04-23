@@ -31,10 +31,19 @@ def query():
 
     commands = (
         """
-        SELECT * FROM cities WHERE city='Northfield';
+        SELECT * 
+        FROM cities 
+        WHERE city='Northfield';
         """,
         '''
-        SELECT city FROM cities ORDER BY pop DESC LIMIT 1;
+        SELECT city 
+        FROM cities 
+        WHERE pop = (SELECT MAX(pop) FROM cities);
+        ''',
+        '''
+        SELECT city
+        FROM cities
+        WHERE pop = (SELECT MIN(pop) FROM cities WHERE state = 'Minnesota');
         '''
         )
     cur.execute(commands[0])
@@ -56,6 +65,11 @@ def query():
     cur.execute(commands[1])
     max_pop = cur.fetchall()
     print(max_pop[0])
+    
+    cur.execute(commands[2])
+    min_pop_in_mn = cur.fetchall()
+    print(min_pop_in_mn[0])
+
 
 
 query()
