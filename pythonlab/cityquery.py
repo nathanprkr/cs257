@@ -115,7 +115,7 @@ def query():
     inpt = input("what is the state name/abv?: ")
 
     if len(inpt) == 2:
-        cur.execute(code_lookup, [inpt])
+        cur.execute(code_lookup, inpt)
         state = cur.fetchall()
         cur.execute(state_pop, state)
         total_pop = cur.fetchall()
