@@ -112,7 +112,7 @@ def query():
             FROM states
             WHERE code = %s;"""
 
-    inpt = input("what is the state name/abv?: ")
+    inpt = str(input("what is the state name/abv?: "))
 
     if len(inpt) == 2:
         cur.execute(code_lookup, inpt)
