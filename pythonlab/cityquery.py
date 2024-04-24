@@ -121,7 +121,7 @@ def query():
         total_pop = cur.fetchall()
         print("Total city population:", total_pop)
     elif len(inpt) > 2:
-        cur.execute(state_pop, inpt)
+        cur.execute(state_pop, (inpt,))
         total_pop = cur.fetchall()
         print("Total city population:", total_pop)
     else:
