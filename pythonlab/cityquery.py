@@ -106,11 +106,11 @@ def query():
 
     state_pop = """SELECT SUM(pop)
             FROM cities
-            WHERE state = '%s';"""
+            WHERE state = %s;"""
     
     code_lookup = """SELECT state 
             FROM states
-            WHERE code = '%s';"""
+            WHERE code = %s;"""
 
     inpt = input("what is the state name/abv?: ")
 
