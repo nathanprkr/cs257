@@ -117,11 +117,11 @@ def query():
     if len(inpt) == 2:
         cur.execute(code_lookup, [inpt])
         state = cur.fetchall()
-        cur.execute(state_pop, [state])
+        cur.execute(state_pop, state)
         total_pop = cur.fetchall()
         print("Total city population:", total_pop)
     elif len(inpt) > 2:
-        cur.execute(state_pop, [inpt])
+        cur.execute(state_pop, inpt)
         total_pop = cur.fetchall()
         print("Total city population:", total_pop)
     else:
