@@ -84,11 +84,11 @@ def query():
 
     cur.execute(commands[1])
     max_pop = cur.fetchall()
-    print(max_pop[0])
+    print("max population:", max_pop)
     
     cur.execute(commands[2])
     min_pop_in_mn = cur.fetchall()
-    print(min_pop_in_mn[0])
+    print("smallest pop in MN:", min_pop_in_mn)
 
     cur.execute(commands[3])
     north = cur.fetchall()
@@ -104,58 +104,36 @@ def query():
     print("furthest west:", west)
 
 
+    state_pop = """SELECT SUM(pop)
+            FROM cities
+            WHERE state = '%s';"""
+    
+    code_lookup = """SELECT state 
+            FROM states
+            WHERE code = '%s';"""
+
+    inpt = input("what is the state name/abv?: ")
+
+    if len(inpt) == 2:
+        cur.execute(state_pop, [inpt])
+        total_pop = cur.fetchall()
+        print("Total city population:", total_pop)
+    elif len(inpt) > 2:
+        cur.execute(code_lookup, [inpt])
+        state = cur.fetchall()
+        cur.execute(state_pop, [state])
+        total_pop = cur.fetchall()
+        print("Total city population:", total_pop)
+
+    else:
+        print("invalid input")
+    
+
 query()
-
-def test_query_all():
-
-    # You will need to change the Password to use this code
-    
-    conn = psycopg2.connect(
-        host="localhost",
-        port=5432,
-        database="mlepinski",
-        user="mlepinski",
-        password="MyDatabasePassword")
-
-    cur = conn.cursor()
-
-    sql = "SELECT name, abb FROM states"
-    
-    cur.execute( sql )
-
-    # fetchall() returns a list containing all rows that matches your query
-    row_list = cur.fetchall()
-
-    # It is often useful to loop through all rows in a query result
-    for row in row_list:
-        print( row[1] )
-    
-    # Note: We could access individual items in the row
-    # That is, row[0] would be the name column in the previous example
-    #   ... and row[1] would be the abb column
-
-    # Here I am leaving out the conn.commit() because we aren't changing
-    #    either the database or the data in the database
-    
-    return None
-
-
 
 #Often we want to put a Python variable into an SQL query
 def test_query_variable():
-    
-    # You will need to change the Port and the Password to use this code
-
-    conn = psycopg2.connect(
-        host="localhost",
-        port=5432,
-        database="mlepinski",
-        user="mlepinski",
-        password="MyDatabasePassword")
-
-    cur = conn.cursor()
-
-
+   
     # Here the %s signals that we will replace this with a variable later
     sql = "SELECT name, abb FROM states WHERE abb = %s OR abb = %s "
 
