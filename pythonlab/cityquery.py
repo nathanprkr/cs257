@@ -121,33 +121,10 @@ def query():
         total_pop = cur.fetchall()
         print("Total city population:", total_pop)
     elif len(inpt) > 2:
-        cur.execute(state_pop, (inpt,))
+        cur.execute(state_pop, (inpt.capitalize(),))
         total_pop = cur.fetchall()
         print("Total city population:", total_pop)
     else:
         print("invalid input")
     
-
 query()
-
-#Often we want to put a Python variable into an SQL query
-def test_query_variable():
-   
-    # Here the %s signals that we will replace this with a variable later
-    sql = "SELECT name, abb FROM states WHERE abb = %s OR abb = %s "
-
-    state_abb1 = 'MN'
-    state_abb2 = 'NM'
-    
-    cur.execute( sql, [state_abb1, state_abb2]  )
-
-    # IMPORTANT: We need a list of values for the second input to execute
-    #   ... Even if we are only inserting my variable, it must be in a list
-    # For example,  [state_abb1]
-    
-    row_list = cur.fetchall()
-
-    for row in row_list:
-        print(row)
-
-    return None
