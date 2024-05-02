@@ -2,7 +2,7 @@ import flask
 import psycopg2
 
 conn = psycopg2.connect(
-        host="localhost",
+        host="parkern2",
         port=5122,   
         database="parkern2",
         user="parkern2",
