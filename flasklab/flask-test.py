@@ -1,9 +1,16 @@
 import flask
 import psycopg2
 
+conn = psycopg2.connect(
+        host="localhost",
+        port=5122,   
+        database="parkern2",
+        user="parkern2",
+        password="python336spam")
+
 app = flask.Flask(__name__)
 
-#
+
 @app.route('/hello')
 def my_function():
     return "Hello World!"
@@ -24,13 +31,6 @@ def add(num1, num2):
 
 @app.route('/pop/<abv>')
 def pop(abv):
-
-    conn = psycopg2.connect(
-        host="localhost",
-        port=5122,   
-        database="parkern2",
-        user="parkern2",
-        password="python336spam")
     
     cur = conn.cursor()
 
