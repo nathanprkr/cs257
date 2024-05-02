@@ -1,4 +1,5 @@
 import flask
+import psycopg2
 
 app = flask.Flask(__name__)
 
@@ -20,6 +21,27 @@ def my_color(word1):
 def add(num1, num2):
     answer = int(num1) + int(num2)
     return (str(answer))
+
+@app.route('/pop/<abv>')
+def pop(abv):
+
+    conn = psycopg2.connect(
+        host="localhost",
+        port=5122,   
+        database="parkern2",
+        user="parkern2",
+        password="python336spam")
+    
+    cur = conn.cursor()
+
+    lookup = """SELECT pop 
+            FROM states
+            WHERE code = %s;"""
+
+    cur.execute(lookup, (abv.upper(),))
+    pop = cur.fetchall()
+
+    return (str(pop))
 
 if __name__ == '__main__':
     my_port = 5122
