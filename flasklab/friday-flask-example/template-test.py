@@ -8,15 +8,14 @@ app = Flask(__name__)
 def welcome():
     return render_template("index.html")
 
-@app.route('/rand/<low>/<high>')
-def rand(low, high):
-    #Input values that come from a URL (i.e., @app.route)
-    #   are always strings so I need to convert the type to int
-    low_int = int(low)
-    high_int = int(high)
-    
-    num = random.randint(low_int, high_int)
-    return render_template("random.html", randNum = num)
+@app.route('/fortune')
+def fortune_gen():
+
+    lst = ["you will die", 'you will have a good day', 'you will have a bad day', 'you suck', 'never get another fortune again', 
+           'your code will work first try', 'you will get a cat', 'you will get a dog', 'you are going to eat at burton', 'you will eat at LDC', 'you will name your child nathan']
+    num = random.randint(0, 10)
+
+    return render_template("fortune.html", fortune = lst[num])
 
 if __name__ == '__main__':
     my_port = 5122
