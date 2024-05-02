@@ -41,7 +41,7 @@ def pop(abv):
     cur.execute(lookup, (abv.upper(),))
     pop = cur.fetchall()
 
-    return (str(pop))
+    return (str(pop[0][0]))
 
 if __name__ == '__main__':
     my_port = 5122
