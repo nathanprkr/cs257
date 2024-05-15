@@ -1,5 +1,5 @@
 function changeColor() {
-  the_heading = document.getElementById("title");
+  the_heading = document.getElementById("Number");
   num = Math.floor(Math.random() * 6);
   const colors = ["red", "blue", "black", "green", "yellow", "orange"]
   the_heading.style.color = colors[num];
