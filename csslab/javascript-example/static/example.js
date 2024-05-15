@@ -11,3 +11,9 @@ function getNumber() {
   number_element = document.getElementById("Number")
   number_element.innerText=displayNum;
 }
+
+function button(){
+  changeColor();
+  getNumber();
+
+}
