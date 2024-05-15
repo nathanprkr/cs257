@@ -5,7 +5,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def welcome():
-    message = message + "Welcome to the random number and color generator!"
+    message = "Welcome to the random number and color generator!"
     return render_template("homepage.html", someText = message)
 
 if __name__ == '__main__':
